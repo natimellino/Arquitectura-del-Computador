@@ -1,3 +1,9 @@
+# Compara dos string: si s1 es mayor que s2 devuelve -1, si es menor devuelve 1
+# y si son iguales devuelve 0.
+
+# Arreglar para que devuelva 0 si los string son iguales,
+# Los otros casos andan bien.
+
 .data
 s1: .asciz "hola"
 s2: .asciz "hola"
@@ -9,11 +15,14 @@ cld # Vamos incrementando ambos registros
 movq $4, %rcx
 
 comparar:
-  cmpsb
+  repe cmpsb # Repetimos cmpsb rcx veces
+  jrcxz equal  # Si rcx es 0 los string son iguales.
   jb lower
   ja greater
-  loop comparar
-  jmp fin
+
+equal: 
+  movq $0, %rax
+  ret
 
 greater:
   movq $1, %rax # s1 es mayor

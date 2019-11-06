@@ -2,7 +2,7 @@
 
 .data
 format: .asciz "%ld\n"
-format_: .asciz "%hx\n"
+format_: .asciz "%x\n" # formato hexa
 i: .quad 0xDEADBEEF
     .text
     .global main

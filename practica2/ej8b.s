@@ -1,45 +1,54 @@
-# Compara dos string: si s1 es mayor que s2 devuelve -1, si es menor devuelve 1
+# Compara dos string: si s1 es mayor que s2 devuelve 1, si es menor devuelve -1
 # y si son iguales devuelve 0.
 
 # Arreglar para que devuelva 0 si los string son iguales,
 # Los otros casos andan bien.
 
-.data
-s1: .asciz "hola"
-s2: .asciz "hola"
+# .data
+# s1: .asciz "bbb"
+# s2: .asciz "abb"
 
-.text
+# .text
 
 .global comparar
-cld # Vamos incrementando ambos registros
-movq $4, %rcx
+
+# Ambas cadenas están en rdi y rsi por convención.
 
 comparar:
-  repe cmpsb # Repetimos cmpsb rcx veces
-  jrcxz equal  # Si rcx es 0 los string son iguales.
-  jb lower
-  ja greater
+  cld # Vamos incrementando ambos registros.
+  movq %rdx, %rcx # La cantidad de iteraciones es la longitud dada.
+  jmp compararcad
 
-equal: 
-  movq $0, %rax
+compararcad:
+  cmpsb 
+  jnz dif # s1 != s2
+  loop compararcad
+  # Son iguales
+  jmp fin
   ret
 
-greater:
-  movq $1, %rax # s1 es mayor
-  ret
+  dif: # Son distintas, revisamos cual es mayor y cual es menor.
+    decq %rdi 
+    decq %rsi
+    cmpsb
+    ja lower
+    movq $1, %rax
+    ret
 
-lower:
-  movq $-1, %rax # s1 es menor
-  ret
+    lower:
+      movq $-1, %rax # s2 es menor
+      ret
 
-fin:
-  movq $0, %rax # Si son iguales devolvemos 0
-  ret
+  fin:
+    movq $0, %rax # s1 es igual s2
+    ret
 
-.global main
-main:
-  movq $s1, %rdi
-  movq $s2, %rsi
-  # movq $4, %rdx # Longitud de la cadena
-  call comparar
-  ret
+# .global main
+
+# main:
+#  movq $s1, %rdi
+#  movq $s2, %rsi
+#  cld # Vamos incrementando ambos registros
+#  movq $3, %rcx # Iteramos tantas veces como longitud tenga la cadena.
+#  call comparar
+#  ret

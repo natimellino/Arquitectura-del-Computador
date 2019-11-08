@@ -1,10 +1,7 @@
+# IMPORTANTE: compilar como: gcc -no-pie ej8.c ej8a.s ej8b.s -g
+
 # Buscar un caracter dentro de una cadena apuntada por rdi.
 
-# .data
-# cad: .asciz "hola"
-# char: .asciz "l"
-
-# .text
 
 .global findc
 

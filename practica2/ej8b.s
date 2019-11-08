@@ -1,14 +1,7 @@
+# IMPORTANTE: compilar como: gcc -no-pie ej8.c ej8a.s ej8b.s -g
+
 # Compara dos string: si s1 es mayor que s2 devuelve 1, si es menor devuelve -1
 # y si son iguales devuelve 0.
-
-# Arreglar para que devuelva 0 si los string son iguales,
-# Los otros casos andan bien.
-
-# .data
-# s1: .asciz "bbb"
-# s2: .asciz "abb"
-
-# .text
 
 .global comparar
 

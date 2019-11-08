@@ -1,3 +1,5 @@
+# IMPORTANTE: compilar como: 'gcc -no-pie ej9.s -g'
+
 .data
 
 fmt: .string "%d"
@@ -37,8 +39,13 @@ main:
 
     xorq %rax, %rax
 
-    # Completar con dos instr
-  
+    # Completar con dos instrucciones:
+
+    imull $19, entero, %edx # 'entero' es un long, lo guardamos en el registro de 4 bytes.
+                            # multiplicamos por 19, que es la distacia entre las direcciones
+                            # f1, f2 y f3.
+    addq $f1, %rdx  # a la direccion de f1, le sumamos nuestro desplazamiento
+                    # y así hacemos un salto a la función que queremos ejecutar.
     jmp *%rdx
 
 fin:

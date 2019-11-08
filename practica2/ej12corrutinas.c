@@ -1,4 +1,4 @@
-#include "guindows.h"
+#include "ej12guindows.h"
 #include <stdio.h>
 
 // Ejercicio 12: observación:

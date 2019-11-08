@@ -1,7 +1,7 @@
 .global main
 
 main:
-  movq $0xFFFFFFFFEEEEEEEE, %rax
+  movq $0xFFFFFFFFEEEEEEEE, %rax # Número a modo de ejemplo.
   movq $64, %rcx
   xorq %rdx, %rdx
 contar:

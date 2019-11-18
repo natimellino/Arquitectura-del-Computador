@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
+// Escribir mayor y menor número representable!
+
 typedef struct nro
 {
   int signo : 1;
@@ -101,6 +103,37 @@ nro suma(nro n1, nro n2)
   return nuevaFraccion;
 }
 
+nro multiplicacion(nro n1, nro n2)
+{
+  // Casos especiales
+
+  if (myisnan(n1) || myisnan(n2))
+    return nronan();
+
+  else if ((myiszero(n1) && myisinf(n2)) || (myiszero(n2) && myisinf(n1)))
+    return nronan();
+
+  else if (myisinf(n1) && myisinf(n2))
+    return nroinf();
+  // hacer caso si alguno es 0 (preguntar que representación se le debe dar).
+  nro resultado;
+  // Sumamos los exponentes
+  resultado.exponente = n1.exponente + n2.exponente;
+  // Verificamos el signo
+  resultado.signo = (n1.signo > n2.signo) ? n1.signo : n2.signo;
+  // Multiplicamos las mantisas.
+  resultado.fraccion = n1.fraccion * n2.fraccion;
+  // Normalizamos el resultado según IEEE 754. (corregir esta parte.)
+  while ((resultado.fraccion & (1 << 17)) == 0)
+  // Mientras el primer bit sea cero, desplazamos la mantisa y
+  // corregimos el exponente.
+  {
+    resultado.fraccion = resultado.fraccion << 1;
+    resultado.exponente = resultado.exponente - 1;
+  }
+  return resultado;
+}
+
 int main()
 {
 
@@ -108,14 +141,14 @@ int main()
   nro n2;
 
   n1.signo = 0;
-  n1.exponente = 10;
-  n1.fraccion = 52;
+  n1.exponente = 2;
+  n1.fraccion = 6;
 
   n2.signo = 0;
-  n2.exponente = 11;
-  n2.fraccion = 12;
+  n2.exponente = 4;
+  n2.fraccion = 10;
 
-  nro resultado = suma(n1, n2);
+  nro resultado = multiplicacion(n1, n2);
 
   printf("%d %d %d\n", resultado.signo, resultado.exponente, resultado.fraccion);
 

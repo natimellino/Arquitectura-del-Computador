@@ -41,50 +41,6 @@ nro nroinf()
   return inf;
 }
 
-// Realiza la suma asumiendo que los exponentes de ambos números están igualados
-
-nro sumar_segun_signo(nro n1, nro n2)
-{
-  nro resultado;
-  if (n1.signo == n2.signo)
-  {
-    resultado.signo = n1.signo;
-    resultado.exponente = n1.exponente;
-    resultado.fraccion = n1.fraccion + n2.fraccion;
-  }
-  else if (n1.signo == 1 && n2.signo == 0)
-  {
-    if (n1.fraccion > n2.fraccion)
-    {
-      resultado.signo = n1.signo;
-      resultado.exponente = n1.exponente;
-      resultado.fraccion = n1.fraccion - n2.fraccion;
-    }
-    else
-    {
-      resultado.signo = n2.signo;
-      resultado.exponente = n1.exponente;
-      resultado.fraccion = n2.fraccion - n1.fraccion;
-    }
-  }
-  else
-  {
-    if (n2.fraccion > n1.fraccion)
-    {
-      resultado.signo = n2.signo;
-      resultado.exponente = n2.exponente;
-      resultado.fraccion = n2.fraccion - n1.fraccion;
-    }
-    else
-    {
-      resultado.signo = n1.signo;
-      resultado.exponente = n2.exponente;
-      resultado.fraccion = n1.fraccion - n2.fraccion;
-    }
-  }
-  return resultado;
-}
-
 nro suma(nro n1, nro n2)
 {
   nro resultado;
@@ -135,7 +91,7 @@ nro suma(nro n1, nro n2)
   }
   // Normalizamos el resultado según IEEE 754. (corregir esta parte.)
   while ((nuevaFraccion.fraccion & (1 << 17)) == 0)
-  // Mientras el primer bit sea cero, desplazamos la mantisa y 
+  // Mientras el primer bit sea cero, desplazamos la mantisa y
   // corregimos el exponente.
   {
     nuevaFraccion.fraccion = nuevaFraccion.fraccion << 1;

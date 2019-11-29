@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <math.h>
 
-// Escribir mayor y menor número representable!
-
 typedef struct nro
 {
   int signo : 1;
@@ -42,6 +40,8 @@ nro nroinf()
   inf.fraccion = 0;
   return inf;
 }
+
+// Suma
 
 nro suma(nro n1, nro n2)
 {
@@ -101,6 +101,8 @@ nro suma(nro n1, nro n2)
   // Preguntar si hay que sumarle el exceso 30000 al exponente.
   return resultado;
 }
+
+// Producto
 
 nro multiplicacion(nro n1, nro n2)
 {

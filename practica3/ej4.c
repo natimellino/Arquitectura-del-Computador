@@ -59,7 +59,6 @@ nro suma(nro n1, nro n2)
   if (myiszero(n2))
     return n1;
 
-  nro nuevaFraccion;
   // Igualamos exponentes.
   if (n1.exponente < n2.exponente)
   {
@@ -71,36 +70,36 @@ nro suma(nro n1, nro n2)
     n2.fraccion = n2.fraccion >> (n1.exponente - n2.exponente);
     n2.exponente = n1.exponente;
   }
-  nuevaFraccion.exponente = n1.exponente; // Ahora los exponentes están igualados.
+  resultado.exponente = n1.exponente; // Ahora los exponentes están igualados.
   // Sumamos las mantisas teniendo en cuenta el signo.
   if (n1.signo == n2.signo)
   {
-    nuevaFraccion.signo = n1.signo;
-    nuevaFraccion.fraccion = n1.fraccion + n2.fraccion;
+    resultado.signo = n1.signo;
+    resultado.fraccion = n1.fraccion + n2.fraccion;
   }
   else if (n1.signo != n2.signo)
   {
     if (n1.fraccion > n2.fraccion)
     {
-      nuevaFraccion.signo = n1.signo;
-      nuevaFraccion.fraccion = n1.fraccion - n2.fraccion;
+      resultado.signo = n1.signo;
+      resultado.fraccion = n1.fraccion - n2.fraccion;
     }
     else
     {
-      nuevaFraccion.signo = n2.signo;
-      nuevaFraccion.fraccion = n2.fraccion - n1.fraccion;
+      resultado.signo = n2.signo;
+      resultado.fraccion = n2.fraccion - n1.fraccion;
     }
   }
   // Normalizamos el resultado según IEEE 754. (corregir esta parte.)
-  while ((nuevaFraccion.fraccion & (1 << 17)) == 0)
+  while ((resultado.fraccion & (1 << 17)) == 0)
   // Mientras el primer bit sea cero, desplazamos la mantisa y
   // corregimos el exponente.
   {
-    nuevaFraccion.fraccion = nuevaFraccion.fraccion << 1;
-    nuevaFraccion.exponente = nuevaFraccion.exponente - 1;
+    resultado.fraccion = resultado.fraccion << 1;
+    resultado.exponente = resultado.exponente - 1;
   }
   // Preguntar si hay que sumarle el exceso 30000 al exponente.
-  return nuevaFraccion;
+  return resultado;
 }
 
 nro multiplicacion(nro n1, nro n2)

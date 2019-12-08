@@ -9,7 +9,7 @@ dividir:
  # Casos especiales
   beq a1, t2, cero
   beq a1, t3, uno
-  beq a0, t2, retcero
+  ble a0, t2, retcero
 
   li t0, 0 # contador (le vamos sumando a1 hasta que sea mayor que a0)
   li t1, 0 # resultado de la division se guarda en t1
